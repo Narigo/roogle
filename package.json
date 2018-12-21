@@ -1,0 +1,20 @@
+{
+  "name": "roogle",
+  "version": "0.1.0",
+  "description": "Take random sentences out of a text and check if a search engine finds sites containing it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Narigo/roogle.git"
+  },
+  "keywords": [],
+  "author": "Joern Bernhardt <joern.bernhardt@googlemail.com> (http://www.unreleased.de)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Narigo/roogle/issues"
+  },
+  "homepage": "https://github.com/Narigo/roogle#readme"
+}
