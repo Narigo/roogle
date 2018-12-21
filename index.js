@@ -1,5 +1,7 @@
+#!/usr/bin/env node
 const stream = require("stream");
 
+// more or less google queries
 streamToGoogleQuery(process.stdin, 5, 50);
 
 function streamToGoogleQuery(inputStream, sentences, minimumLength) {
