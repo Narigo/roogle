@@ -5,6 +5,6 @@ Take random sentences out of a text and check if a search engine finds sites con
 Example:
 
 ```
-$ pdftotext -enc UTF-8 some-text.pdf | npx roogle
+$ pdftotext -enc UTF-8 some-text.pdf | npx roogle | head -n5 | tail -n3 | sh
 ```
 
