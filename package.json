@@ -1,6 +1,6 @@
 {
   "name": "roogle",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Take random sentences out of a text and check if a search engine finds sites containing it.",
   "main": "index.js",
   "bin": "index.js",
