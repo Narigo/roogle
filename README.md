@@ -5,6 +5,10 @@ Take random sentences out of a text and check if a search engine finds sites con
 Example:
 
 ```
-$ pdftotext -enc UTF-8 some-text.pdf | npx roogle | head -n5 | tail -n3 | sh
+$ pdftotext -enc UTF-8 some-text.pdf | npx roogle | sh
 ```
+
+## Options
+
+`npx roogle 10` results in 10 "open google search for this sentence" commands to be piped into `sh`.
 
