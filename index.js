@@ -2,6 +2,7 @@
 const stream = require("stream");
 
 const maximumNumberOfSentences = process.argv[2] || 5;
+const searchPrefix = process.argv[3] || "https://www.google.com/search?q=";
 
 // more or less google queries
 streamToGoogleQuery(process.stdin, maximumNumberOfSentences, 50);
@@ -88,7 +89,7 @@ function toCommands() {
   return new stream.Transform({
     objectMode: true,
     transform(chunk, encoding, cb) {
-      this.push(`open https://www.google.com/search?q=${encodeURIComponent(chunk)}\n`);
+      this.push(`open ${searchPrefix}${encodeURIComponent(chunk)}\n`);
       cb();
     }
   });
