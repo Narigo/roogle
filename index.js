@@ -4,7 +4,6 @@ const stream = require("stream");
 const maximumNumberOfSentences = process.argv[2] || 5;
 const searchPrefix = process.argv[3] || "https://www.google.com/search?q=";
 
-// more or less google queries
 streamToGoogleQuery(process.stdin, maximumNumberOfSentences, 50);
 
 function streamToGoogleQuery(inputStream, sentences, minimumLength) {
@@ -12,14 +11,13 @@ function streamToGoogleQuery(inputStream, sentences, minimumLength) {
   return inputStream
     .pipe(tokenizeSentences())
     .pipe(mergeAllSentences())
-    .pipe(filterByMinimumLength(50))
+    .pipe(filterByMinimumLength(minimumLength))
     .pipe(splitArrayIntoParts(sentences))
     .pipe(selectOneRandomly())
     .pipe(toCommands())
     .pipe(process.stdout);
 }
 
-//`open https://www.google.de/search?q=${encodeURIComponent(maybeSentence)}\n`);
 function tokenizeSentences() {
   return new stream.Transform({
     objectMode: true,
@@ -66,7 +64,7 @@ function splitArrayIntoParts(amountOfChunks) {
   return new stream.Transform({
     objectMode: true,
     transform(chunk, encoding, cb) {
-      const splitEvery = Math.floor(chunk.length / amountOfChunks);
+      const splitEvery = Math.max(Math.floor(chunk.length / amountOfChunks), 1);
       for (let i = 0; (i * splitEvery) < chunk.length; i++) {
         this.push(chunk.slice(i * splitEvery, (i + 1) * splitEvery));
       }

@@ -1,0 +1,1 @@
+This is a text with a few words that should be kept as it is over 50 characters long. Another sentence that should be included in the resulting search. Another sentence that should be included in the resulting search. Another sentence that should be included in the resulting search.
