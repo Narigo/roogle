@@ -23,7 +23,7 @@ async function runAllTests() {
 async function test(name) {
   const readFile = promisify(fs.readFile);
   const unlink = promisify(fs.unlink);
-  const expectedOutput = await readFile(`__test__/${name}.output.txt`, 'utf8');
+  const expectedOutput = await readFile(`__test__/${name}.expected.txt`, 'utf8');
   const tempTestOutputFile = `test-output-${name}.tmp.txt`;
   await new Promise((resolve, reject) => {
     const stream = streamToGoogleQuery({
