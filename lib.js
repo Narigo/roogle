@@ -69,9 +69,11 @@ function splitArrayIntoParts(amountOfChunks) {
   return new stream.Transform({
     objectMode: true,
     transform(chunk, encoding, cb) {
-      const splitEvery = Math.max(Math.floor(chunk.length / amountOfChunks), 1);
+      const splitEvery = Math.max(chunk.length / amountOfChunks, 1);
       for (let i = 0; i * splitEvery < chunk.length; i++) {
-        this.push(chunk.slice(i * splitEvery, (i + 1) * splitEvery));
+        const from = Math.floor(i * splitEvery);
+        const to = Math.floor((i + 1) * splitEvery);
+        this.push(chunk.slice(from, to));
       }
       cb();
     }

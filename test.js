@@ -11,30 +11,58 @@ run()
   });
 
 async function run() {
-  await runAllTests();
-}
-
-async function runAllTests() {
-  await test("five-sentences-text");
-  await test("short-text");
-  await test("text-with-filtered-sentences");
-}
-
-async function test(name) {
   const readFile = promisify(fs.readFile);
   const unlink = promisify(fs.unlink);
-  const expectedOutput = await readFile(`__test__/${name}.expected.txt`, 'utf8');
-  const tempTestOutputFile = `test-output-${name}.tmp.txt`;
-  await new Promise((resolve, reject) => {
-    const stream = streamToGoogleQuery({
-      inputStream: fs.createReadStream(`__test__/${name}.txt`),
-      outputStream: fs.createWriteStream(tempTestOutputFile)
-    });
-    stream.on("error", reject);
-    stream.on("close", resolve);
-  });
-  const testOutput = await readFile(tempTestOutputFile, 'utf8');
 
-  assert(testOutput === expectedOutput, `output does not match expectation in test ${name}:\n${testOutput}\n!==\n${expectedOutput}`);
-  await unlink(tempTestOutputFile);
+  return runAllTests();
+
+  async function runAllTests() {
+    await test("five-sentences-text");
+    await test("short-text");
+    await test("text-with-filtered-sentences");
+    await testIncludedButNotAll("twelve-sentences-text");
+  }
+
+  async function testIncludedButNotAll(name) {
+    return assertAgainstOutput(name, (expectedOutput, testOutput) => {
+      const possibilities = expectedOutput.split(/\n/).filter(line => line !== "");
+      const results = testOutput.split(/\n/).filter(line => line !== "");
+      for (let line of results) {
+        const countedTimes = results.reduce((count, possibility) => (line === possibility ? count + 1 : count), 0);
+        assert(countedTimes === 1, `counted the same line twice in the results`);
+        assert(possibilities.includes(line), `line is not in possibilities!\n${line}`);
+      }
+      assert(
+        results.length < possibilities.length,
+        `results should be less than possibliities!\n${results.length} >= ${possibilities.length}`
+      );
+    });
+  }
+
+  async function test(name) {
+    return assertAgainstOutput(name, (expectedOutput, testOutput) =>
+      assert(
+        testOutput === expectedOutput,
+        `output does not match expectation in test ${name}:\n${testOutput}\n!==\n${expectedOutput}`
+      )
+    );
+  }
+
+  async function assertAgainstOutput(name, assertions) {
+    const expectedOutput = await readFile(`__test__/${name}.expected.txt`, "utf8");
+    const tempTestOutputFile = `test-output-${name}.tmp.txt`;
+    await new Promise((resolve, reject) => {
+      const stream = streamToGoogleQuery({
+        inputStream: fs.createReadStream(`__test__/${name}.txt`),
+        outputStream: fs.createWriteStream(tempTestOutputFile)
+      });
+      stream.on("error", reject);
+      stream.on("close", resolve);
+    });
+    const testOutput = await readFile(tempTestOutputFile, "utf8");
+
+    await assertions(expectedOutput, testOutput);
+
+    await unlink(tempTestOutputFile);
+  }
 }
