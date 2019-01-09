@@ -13,15 +13,11 @@ program
 
 const { length, prefix, raw, sentences, suffix } = program;
 
-const opts = {
+streamToGoogleQuery({
   inputStream: process.stdin,
   maximumNumberOfSentences: sentences,
   minimumLengthOfSentence: length,
   prefix,
   raw,
   suffix
-};
-
-console.log({ opts });
-
-streamToGoogleQuery(opts);
+});
