@@ -1,5 +1,5 @@
-open https://www.google.com/search?q=This%20is%20a%20text%20with%20a%20few%20words%20that%20should%20be%20kept%20as%20it%20is%20over%20%20characters%20long
-open https://www.google.com/search?q=A%20second%20longer%20sentence%20that%20will%20not%20be%20filtered%20out
-open https://www.google.com/search?q=A%20third%20longer%20sentence%20that%20will%20not%20be%20filtered%20out
-open https://www.google.com/search?q=A%20fourth%20longer%20sentence%20that%20will%20not%20be%20filtered%20out
-open https://www.google.com/search?q=A%20fifth%20longer%20sentence%20that%20will%20not%20be%20filtered%20out
+open "https://www.google.com/search?q=This%20is%20a%20text%20with%20a%20few%20words%20that%20should%20be%20kept%20as%20it%20is%20over%20%20characters%20long"
+open "https://www.google.com/search?q=A%20second%20longer%20sentence%20that%20will%20not%20be%20filtered%20out"
+open "https://www.google.com/search?q=A%20third%20longer%20sentence%20that%20will%20not%20be%20filtered%20out"
+open "https://www.google.com/search?q=A%20fourth%20longer%20sentence%20that%20will%20not%20be%20filtered%20out"
+open "https://www.google.com/search?q=A%20fifth%20longer%20sentence%20that%20will%20not%20be%20filtered%20out"

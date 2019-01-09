@@ -13,25 +13,25 @@ function streamToGoogleQuery({
 }) {
   process.stdout.on("error", () => {});
   return inputStream
-    .pipe(tokenizeSentences())
+    .pipe(tokenizeSentences({ raw }))
     .pipe(mergeAllSentences())
-    .pipe(filterByMinimumLength(minimumLengthOfSentence))
-    .pipe(splitArrayIntoParts(maximumNumberOfSentences))
+    .pipe(filterByMinimumLength({ minimumLengthOfSentence }))
+    .pipe(splitArrayIntoParts({ maximumNumberOfSentences }))
     .pipe(selectOneRandomly())
     .pipe(toCommands({ prefix, raw, suffix }))
     .pipe(outputStream);
 }
 
-function tokenizeSentences() {
+function tokenizeSentences({ raw }) {
   return new stream.Transform({
     objectMode: true,
     transform(chunk, encoding, cb) {
       const possibleSentences = [];
       chunk
         .toString(encoding)
-        .split(/[:.!?\n]/)
+        .split(/[:.!?\n]+/)
         .forEach(sentence => {
-          const maybeSentence = sentence.replace(/[^a-zäöüß\- ]/gi, "").trim();
+          const maybeSentence = (raw ? sentence : sentence.replace(/[^a-zäöüß\- ]/gi, "")).trim();
           if (maybeSentence !== "") {
             possibleSentences.push(maybeSentence);
           }
@@ -57,21 +57,21 @@ function mergeAllSentences() {
   });
 }
 
-function filterByMinimumLength(length) {
+function filterByMinimumLength({ minimumLengthOfSentence }) {
   return new stream.Transform({
     objectMode: true,
     transform(chunk, encoding, cb) {
-      this.push(chunk.filter(str => length <= str.length));
+      this.push(chunk.filter(str => minimumLengthOfSentence <= str.length));
       cb();
     }
   });
 }
 
-function splitArrayIntoParts(amountOfChunks) {
+function splitArrayIntoParts({ maximumNumberOfSentences }) {
   return new stream.Transform({
     objectMode: true,
     transform(chunk, encoding, cb) {
-      const splitEvery = Math.max(chunk.length / amountOfChunks, 1);
+      const splitEvery = Math.max(chunk.length / maximumNumberOfSentences, 1);
       for (let i = 0; i * splitEvery < chunk.length; i++) {
         const from = Math.floor(i * splitEvery);
         const to = Math.floor((i + 1) * splitEvery);
