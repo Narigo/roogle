@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Narigo/roogle/issues"
   },
-  "homepage": "https://github.com/Narigo/roogle#readme"
+  "homepage": "https://github.com/Narigo/roogle#readme",
+  "dependencies": {
+    "commander": "^2.19.0"
+  }
 }

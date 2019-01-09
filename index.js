@@ -1,12 +1,27 @@
 #!/usr/bin/env node
+const program = require("commander");
 const streamToGoogleQuery = require("./lib.js");
 
-const maximumNumberOfSentences = process.argv[2] || 5;
-const searchPrefix = process.argv[3] || "https://www.google.com/search?q=";
+program
+  .version("2.0.0")
+  .option("-l, --length [chars]", "Minimum amount of characters in a selected sentence", 50)
+  .option("-n, --sentences [num]", "Amount of sentences to randomly select", 5)
+  .option("-r, --raw", "Write raw sentences without url-encode. You probably want to set -p and -s as well.")
+  .option("-p, --prefix [prefix]", "Add a prefix to the sentences", 'open "https://www.google.com/search?q=')
+  .option("-s, --suffix [suffix]", "Add a suffix to the sentences", '"')
+  .parse(process.argv);
 
-streamToGoogleQuery({
+const { length, prefix, raw, sentences, suffix } = program;
+
+const opts = {
   inputStream: process.stdin,
-  maximumNumberOfSentences,
-  minimumLengthOfSentence: 50,
-  searchPrefix
-});
+  maximumNumberOfSentences: sentences,
+  minimumLengthOfSentence: length,
+  prefix,
+  raw,
+  suffix
+};
+
+console.log({ opts });
+
+streamToGoogleQuery(opts);

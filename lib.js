@@ -7,7 +7,9 @@ function streamToGoogleQuery({
   maximumNumberOfSentences = 5,
   minimumLengthOfSentence = 50,
   outputStream = process.stdout,
-  searchPrefix = "https://www.google.com/search?q="
+  prefix = 'open "https://www.google.com/search?q=',
+  raw = false,
+  suffix = '"'
 }) {
   process.stdout.on("error", () => {});
   return inputStream
@@ -16,7 +18,7 @@ function streamToGoogleQuery({
     .pipe(filterByMinimumLength(minimumLengthOfSentence))
     .pipe(splitArrayIntoParts(maximumNumberOfSentences))
     .pipe(selectOneRandomly())
-    .pipe(toCommands(searchPrefix))
+    .pipe(toCommands({ prefix, raw, suffix }))
     .pipe(outputStream);
 }
 
@@ -90,11 +92,11 @@ function selectOneRandomly() {
   });
 }
 
-function toCommands(searchPrefix) {
+function toCommands({ prefix, raw, suffix }) {
   return new stream.Transform({
     objectMode: true,
     transform(chunk, encoding, cb) {
-      this.push(`open ${searchPrefix}${encodeURIComponent(chunk)}\n`);
+      this.push(`${prefix}${raw ? chunk : encodeURIComponent(chunk)}${suffix}\n`);
       cb();
     }
   });
