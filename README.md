@@ -8,7 +8,17 @@ Example:
 $ pdftotext -enc UTF-8 some-text.pdf | npx roogle | sh
 ```
 
-## Options
+```
+Usage: roogle [options]
 
-`npx roogle 10` results in 10 "open google search for this sentence" commands to be piped into `sh`.
-
+Options:
+  -v, --version          output the version number
+  -l, --length [chars]   Minimum amount of characters in a selected sentence (default: 50)
+  -n, --sentences [num]  Amount of sentences to randomly select (default: 5)
+  -r, --raw              Write raw sentences without url-encode and with punctuation.
+  -p, --prefix [prefix]  Add a prefix to the sentences (default: "open \"https://www.google.com/search?q=")
+  -s, --suffix [suffix]  Add a suffix to the sentences (default: "\"")
+  -P, --disable-prefix   Removes the prefix
+  -S, --disable-suffix   Removes the suffix
+  -h, --help             output usage information
+```
