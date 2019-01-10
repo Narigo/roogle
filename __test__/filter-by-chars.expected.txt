@@ -1,0 +1,3 @@
+open "https://www.google.com/search?q=This%20is%20a%20sentence%20with%20a%20lot%20of%20characters%20and%20ultimately%20over"
+open "https://www.google.com/search?q=So%20this%20sentence%20is%20right%20above%20that%20artificial%20limit"
+open "https://www.google.com/search?q=Longer%20things%20do%20not%20get%20filtered%20so%20this%20is%20just%20a%20longer%20text%20that%20should%20appear"

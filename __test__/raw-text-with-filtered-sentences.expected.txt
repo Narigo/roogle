@@ -1,0 +1,5 @@
+This is a text with a few words that should be kept as it is over 50 characters long
+A second longer sentence that will not be filtered out
+A third longer sentence that will not be filtered out
+A fourth longer sentence that will not be filtered out
+A fifth longer sentence that will not be filtered out
