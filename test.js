@@ -24,6 +24,7 @@ async function run() {
     await test("twelve-sentences-text", { maximumNumberOfSentences: 12 });
     await test("filter-by-chars", { minimumLengthOfSentence: 53 });
     await test("five-sentences-text-prefix", { prefix: "Prefix!" });
+    await test("five-sentences-text-suffix", { suffix: '%20!g"' });
     await test("raw-text-with-filtered-sentences", { prefix: "", raw: true, suffix: "" });
     await testIncludedButNotAll("twelve-sentences-text", {});
   }
