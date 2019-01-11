@@ -23,6 +23,7 @@ async function run() {
     await test("text-with-filtered-sentences", {});
     await test("twelve-sentences-text", { maximumNumberOfSentences: 12 });
     await test("filter-by-chars", { minimumLengthOfSentence: 53 });
+    await test("five-sentences-text-prefix", { prefix: "Prefix!" });
     await test("raw-text-with-filtered-sentences", { prefix: "", raw: true, suffix: "" });
     await testIncludedButNotAll("twelve-sentences-text", {});
   }
