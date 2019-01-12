@@ -2,6 +2,8 @@
 
 Take random sentences out of a text and check if a search engine finds sites containing it.
 
+To stream a PDF into roogle, use something like `pdftotext` from [xpdf](https://www.xpdfreader.com/).
+
 Example:
 
 ```
