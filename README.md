@@ -2,12 +2,10 @@
 
 Take random sentences out of a text and check if a search engine finds sites containing it.
 
-To stream a PDF into roogle, use something like `pdftotext` from [xpdf](https://www.xpdfreader.com/).
-
 Example:
 
 ```
-$ pdftotext -enc UTF-8 some-text.pdf | npx roogle | sh
+$ cat my-text.txt | npx roogle | sh
 ```
 
 ```
@@ -25,7 +23,7 @@ Options:
   -h, --help             output usage information
 ```
 
-## Example usage
+## Example usage with PDFs
 
 To get `roogle` running with PDFs, we need to do these steps:
 
